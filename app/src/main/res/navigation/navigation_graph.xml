@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/product_list_fragment">
+
+    <fragment
+        android:id="@+id/product_list_fragment"
+        android:name="ru.eightythreesoftware.shop_app.android.demo.view.ProductListFragment"
+        android:label="product_list_fragment"
+        tools:layout="@layout/product_list_fragment" >
+        <action
+            android:id="@+id/action_productListFragment_to_productDetailsFragment2"
+            app:destination="@id/product_details_fragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_userProfileFragment3"
+            app:destination="@id/user_profile_fragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_mapNavigationFragment2"
+            app:destination="@id/map_navigation_fragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_groceryFragment2"
+            app:destination="@id/grocery_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/product_details_fragment"
+        android:name="ru.eightythreesoftware.shop_app.android.demo.view.ProductDetailsFragment"
+        android:label="product_details_fragment"
+        tools:layout="@layout/product_details_fragment" >
+        <action
+            android:id="@+id/action_productDetailsFragment_to_productListFragment"
+            app:destination="@id/product_list_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/grocery_fragment"
+        android:name="ru.eightythreesoftware.shop_app.android.demo.view.GroceryFragment"
+        android:label="grocery_fragment"
+        tools:layout="@layout/grocery_fragment" >
+        <action
+            android:id="@+id/action_groceryFragment2_to_productListFragment"
+            app:destination="@id/product_list_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/map_navigation_fragment"
+        android:name="ru.eightythreesoftware.shop_app.android.demo.view.MapNavigationFragment"
+        android:label="map_navigation_fragment"
+        tools:layout="@layout/map_navigation_fragment" >
+        <action
+            android:id="@+id/action_mapNavigationFragment2_to_productListFragment"
+            app:destination="@id/product_list_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/user_profile_fragment"
+        android:name="ru.eightythreesoftware.shop_app.android.demo.view.UserProfileFragment"
+        android:label="user_profile_fragment"
+        tools:layout="@layout/user_profile_fragment" >
+        <action
+            android:id="@+id/action_userProfileFragment3_to_productListFragment"
+            app:destination="@id/product_list_fragment" />
+    </fragment>
+</navigation>
