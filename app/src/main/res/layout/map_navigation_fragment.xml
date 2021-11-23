@@ -11,4 +11,13 @@
         android:text="MAP"
         android:textSize="200dp"/>
 
+    <!--    <ru.dgis.sdk.map.MapView-->
+    <!--        android:id="@+id/mapView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:dgis_cameraTargetLat="55.740444"-->
+    <!--        app:dgis_cameraTargetLng="37.619524"-->
+    <!--        app:dgis_cameraZoom="16.0"-->
+    <!--        />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

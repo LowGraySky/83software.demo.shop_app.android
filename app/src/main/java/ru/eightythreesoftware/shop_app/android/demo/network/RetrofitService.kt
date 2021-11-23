@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitService {
 
-    private final val BASE_URL: String = "https://api.punkapi.com/v2/beers/"
+    private final val BASE_URL: String = "https://api.punkapi.com/"
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())

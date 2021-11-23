@@ -14,10 +14,12 @@ import ru.eightythreesoftware.shop_app.android.demo.viewmodel.ProductsViewModelF
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: ProductsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val viewModel: ProductsViewModel = ViewModelProvider(this,
+        viewModel = ViewModelProvider(this,
             ProductsViewModelFactory(
                 Repository(
                     RetrofitService.newInstance()
@@ -28,5 +30,10 @@ class MainActivity : AppCompatActivity() {
         val navigationController = navigationHostFragment.navController
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .setupWithNavController(navigationController)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.stop()
     }
 }

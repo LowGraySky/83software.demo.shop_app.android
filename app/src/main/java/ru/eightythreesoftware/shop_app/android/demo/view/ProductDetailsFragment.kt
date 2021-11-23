@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import ru.eightythreesoftware.shop_app.android.demo.R
-import ru.eightythreesoftware.shop_app.android.demo.network.ProductResponse
+import ru.eightythreesoftware.shop_app.android.demo.network.products_response.ProductResponse
 
 class ProductDetailsFragment(private val product: ProductResponse) : Fragment() {
 
@@ -29,7 +29,7 @@ class ProductDetailsFragment(private val product: ProductResponse) : Fragment() 
         nameView.text = product.name
         abvView.text = product.abv.toString()
         descriptionView.text = product.description
-        ingredientsView.text = product.ingredients
+        ingredientsView.text = product.ingredients.toString()
         Glide.with(imageView)
             .load(product.image_url)
             .error(R.drawable.no_image_error)
