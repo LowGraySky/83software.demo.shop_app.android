@@ -11,16 +11,16 @@
         android:label="product_list_fragment"
         tools:layout="@layout/product_list_fragment" >
         <action
-            android:id="@+id/action_productListFragment_to_productDetailsFragment2"
+            android:id="@+id/action_productListFragment_to_productDetailsFragment"
             app:destination="@id/product_details_fragment" />
         <action
-            android:id="@+id/action_productListFragment_to_userProfileFragment3"
+            android:id="@+id/action_productListFragment_to_userProfileFragment"
             app:destination="@id/user_profile_fragment" />
         <action
-            android:id="@+id/action_productListFragment_to_mapNavigationFragment2"
+            android:id="@+id/action_productListFragment_to_mapNavigationFragment"
             app:destination="@id/map_navigation_fragment" />
         <action
-            android:id="@+id/action_productListFragment_to_groceryFragment2"
+            android:id="@+id/action_productListFragment_to_groceryFragment"
             app:destination="@id/grocery_fragment" />
     </fragment>
     <fragment
@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_groceryFragment2_to_productListFragment"
             app:destination="@id/product_list_fragment" />
+        <action
+            android:id="@+id/action_grocery_fragment_to_product_details_fragment"
+            app:destination="@id/product_details_fragment" />
     </fragment>
     <fragment
         android:id="@+id/map_navigation_fragment"

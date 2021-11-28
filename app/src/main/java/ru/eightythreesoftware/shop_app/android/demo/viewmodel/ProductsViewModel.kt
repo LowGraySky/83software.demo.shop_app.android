@@ -8,23 +8,35 @@ import androidx.lifecycle.viewModelScope
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
+import ru.eightythreesoftware.shop_app.android.demo.model.Product
 import ru.eightythreesoftware.shop_app.android.demo.model.Repository
 import ru.eightythreesoftware.shop_app.android.demo.network.products_response.ProductResponse
 
 class ProductsViewModel(private val repository: Repository): ViewModel() {
 
-    val compositeDisposable: CompositeDisposable by lazy {
+    private val compositeDisposable: CompositeDisposable by lazy {
         CompositeDisposable()
     }
 
-    private val _productsList: MutableLiveData<List<ProductResponse>> by lazy {
-        MutableLiveData<List<ProductResponse>>().also {
+    private val _productsList: MutableLiveData<List<Product>> by lazy {
+        MutableLiveData<List<Product>>().also {
             loadProductsList()
         }
     }
 
-    val productsList: LiveData<List<ProductResponse>>
+    val productsList: LiveData<List<Product>>
         get() = _productsList
+
+    private val _singleProduct: MutableLiveData<Product> by lazy {
+        MutableLiveData<Product>()
+    }
+
+    val singleProduct: LiveData<Product>
+        get() = _singleProduct
+
+    fun selectSingleProduct(product: Product){
+        _singleProduct.postValue(product)
+    }
 
     private fun loadProductsList(){
         repository.getProductList()
@@ -41,7 +53,6 @@ class ProductsViewModel(private val repository: Repository): ViewModel() {
 
     fun loadProductById(id: Int){
         repository.getProductById(id)
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnError { throwable ->
                 Log.d("MAIN_DEBUG", "FAIL: data hasn't been added , ERROR: $throwable")
             }.subscribe { value ->
