@@ -17,15 +17,17 @@ class ProductsListRecyclerViewAdapter(
     private val clickListener: (Product) -> Unit
     ): RecyclerView.Adapter<ProductsListRecyclerViewAdapter.ViewHolder>() {
 
-     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val image: ImageView = itemView.findViewById(R.id.product_list_product_icon)
+        val price: TextView = itemView.findViewById(R.id.product_list_product_price)
         val abv: TextView = itemView.findViewById(R.id.product_list_product_abv)
 
-         fun binListener(product: Product, listener: (Product) -> Unit){
-             itemView.setOnClickListener{
+        fun binListener(product: Product, listener: (Product) -> Unit){
+            itemView.setOnClickListener{
                  listener(product)
-             }
-         }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsListRecyclerViewAdapter.ViewHolder {
@@ -38,6 +40,7 @@ class ProductsListRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ProductsListRecyclerViewAdapter.ViewHolder, position: Int) {
         val product = products[position]
         holder.abv.text = "${product.abv}%"
+        holder.price.text = "${product.price}$"
         Glide.with(holder.image)
             .load(product.image)
             .error(R.drawable.no_image_error)

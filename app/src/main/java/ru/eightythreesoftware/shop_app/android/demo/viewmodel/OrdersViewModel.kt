@@ -1,4 +1,5 @@
 package ru.eightythreesoftware.shop_app.android.demo.viewmodel
 
-class OrdersViewModel {
-}
+import androidx.lifecycle.ViewModel
+
+class OrdersViewModel: ViewModel()

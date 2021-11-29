@@ -9,5 +9,5 @@ class Product(
     var image: String?,
     var ingredients: Ingredients?,
     var description: String?,
-    var price: Double?
+    var price: Double
 )

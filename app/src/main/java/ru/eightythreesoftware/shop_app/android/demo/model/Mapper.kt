@@ -14,7 +14,7 @@ class Mapper {
                 response.image_url,
                 response.ingredients,
                 response.description,
-                0.0
+                10.0
             )
         }
 

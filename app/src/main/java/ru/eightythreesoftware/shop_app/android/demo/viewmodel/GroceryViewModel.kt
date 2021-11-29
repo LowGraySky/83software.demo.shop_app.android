@@ -17,21 +17,25 @@ class GroceryViewModel: ViewModel() {
 
     fun addToGrocery(product: Product){
         try {
-            val elements: MutableList<Product>? = grocery.value as MutableList<Product>?
-            elements?.add(product)
-            _grocery.postValue(elements)
+            val resultList = mutableListOf<Product>()
+            (grocery.value as Collection<Product>?)?.let { resultList.addAll(0, it) }
+            resultList.add(product)
+            _grocery.postValue(resultList)
         }catch (throwable: Throwable){
             Log.d("MAIN_DEBUG", "ERROR: ${throwable.message.toString()}")
         }
+        Log.d("MAIN_DEBUG","Current grocery view model items list: ${grocery.value}")
     }
 
     fun removeFromGrocery(product: Product){
         try {
-            val elements: MutableList<Product>? = grocery.value as MutableList<Product>?
-            elements?.remove(product)
-            _grocery.postValue(elements)
+            val resultList = mutableListOf<Product>()
+            (grocery.value as Collection<Product>?)?.let { resultList.addAll(0, it) }
+            resultList.remove(product)
+            _grocery.postValue(resultList)
         }catch (throwable: Throwable){
             Log.d("MAIN_DEBUG", "ERROR: ${throwable.message.toString()}")
         }
+        Log.d("MAIN_DEBUG","Current grocery view model items list: ${grocery.value}")
     }
 }

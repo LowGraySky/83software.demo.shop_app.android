@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var productViewModel: ProductsViewModel
     private lateinit var groceryViewModel: GroceryViewModel
-    private lateinit var navigationController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         )[ProductsViewModel::class.java]
         groceryViewModel = ViewModelProvider(this, GroceryViewModelFactory())[GroceryViewModel::class.java]
         val navigationHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navigationController = navigationHostFragment.navController
+        val navigationController = navigationHostFragment.navController
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .setupWithNavController(navigationController)
     }
