@@ -1,22 +1,83 @@
 package ru.eightythreesoftware.shop_app.android.demo.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.compose.ui.text.toUpperCase
+import androidx.core.graphics.rotationMatrix
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.eightythreesoftware.shop_app.android.demo.R
+import ru.eightythreesoftware.shop_app.android.demo.view.recycler_views.UserOrdersRecyclerViewAdapter
+import ru.eightythreesoftware.shop_app.android.demo.viewmodel.OrdersViewModel
+import ru.eightythreesoftware.shop_app.android.demo.viewmodel.UserViewModel
+import java.util.*
 
 class UserProfileFragment : Fragment() {
+
+    private val userProfileViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.user_profile_fragment, container, false)
+        val view = inflater.inflate(R.layout.user_profile_fragment, container, false)
+        setParams(view)
+        return view
     }
 
-    companion object {
-        fun newInstance() = UserProfileFragment()
+    @SuppressLint("SetTextI18n")
+    private fun setParams(view: View){
+        try {
+            val userName: TextView = view.findViewById(R.id.user_profile_fragment_user_name)
+            val userEmail: TextView = view.findViewById(R.id.user_profile_fragment_user_email)
+            val userAddress: TextView = view.findViewById(R.id.user_profile_fragment_user_address)
+            val userPhoneNumber: TextView = view.findViewById(R.id.user_profile_fragment_user_phone_number)
+            val userImage: ImageView = view.findViewById(R.id.user_profile_fragment_user_icon)
+            val changeProfileButton: ImageView = view.findViewById(R.id.user_profile_fragment_change_profile_button)
+            val userOrdersRecyclerView: RecyclerView = view.findViewById(R.id.user_profile_fragment_recycler_view)
+            userProfileViewModel.user.observe(viewLifecycleOwner){ user ->
+                userName.text = "" +
+                        "${user.firstName
+                            .uppercase(Locale.getDefault())} ${user.lastName
+                            .uppercase(
+                        Locale.getDefault())}"
+                userEmail.text = user.email
+                userPhoneNumber.text = user.phone
+                userAddress.text = "${user.userAddress.city}, ${user.userAddress.street_address}"
+                Glide.with(userImage)
+                    .load(user.image)
+                    .placeholder(R.drawable.loading_image)
+                    .error(R.drawable.no_image_error)
+                    .into(userImage)
+//                userOrdersRecyclerView.adapter = UserOrdersRecyclerViewAdapter(TODO())
+//                userOrdersRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+//                changeProfileButton.setOnClickListener {
+//                    changeProfile(user.email)
+//                }
+            }
+        }catch (throwable: Throwable){
+            Toast.makeText(
+                this.context,
+                "Не удалось открыть профиль пользователя",
+                Toast.LENGTH_LONG
+            ).show()
+                .also {
+                Log.d("MAIN_DEBUG","FAIL: failed to set user profile fragment params ERROR: ${throwable.message}")
+            }
+        }
     }
+
+    private fun changeProfile(email: String) =
+        userProfileViewModel.changeProfile(email)
+
 }

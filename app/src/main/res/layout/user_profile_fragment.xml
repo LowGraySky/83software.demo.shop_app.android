@@ -1,14 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.UserProfileFragment">
 
-    <TextView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="USER PROF"
-        android:textSize="200dp"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/user_profile_fragment_user_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/user_no_profile_icon" />
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/user_profile_fragment_change_profile_button"
+                android:src="@drawable/change_user_profile_button_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/user_profile_fragment_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:text="name"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                app:layout_constraintTop_toTopOf="@+id/cardView4" />
+
+            <TextView
+                android:id="@+id/user_profile_fragment_user_phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="phone"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                app:layout_constraintTop_toBottomOf="@+id/user_profile_fragment_user_email" />
+
+            <TextView
+                android:id="@+id/user_profile_fragment_user_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="address"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                app:layout_constraintTop_toBottomOf="@+id/user_profile_fragment_user_phone_number" />
+
+            <TextView
+                android:id="@+id/user_profile_fragment_user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="email"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                app:layout_constraintTop_toBottomOf="@+id/user_profile_fragment_user_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView5">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_profile_fragment_recycler_view"/>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

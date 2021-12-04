@@ -2,6 +2,7 @@ package ru.eightythreesoftware.shop_app.android.demo.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +63,13 @@ class ProductDetailsFragment: Fragment() {
                 .placeholder(R.drawable.loading_image)
                 .into(imageView)
         }catch (throwable: Throwable){
-            Toast.makeText(this.context, throwable.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this.context,
+                "Не удалось открыть детальное описание продукта",
+                Toast.LENGTH_LONG
+            ).show().also {
+                Log.d("MAIN_DEBUG", "FAILED: failed to open product details fragment ERROR: ${throwable.message}")
+            }
         }
     }
 

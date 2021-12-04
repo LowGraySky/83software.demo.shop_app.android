@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import ru.eightythreesoftware.shop_app.android.demo.network.products_response.ProductResponse
 
-interface NetworkService {
+interface ProductService {
     @GET("/v2/beers/")
     fun getProductList(): Single<List<ProductResponse>>
 
