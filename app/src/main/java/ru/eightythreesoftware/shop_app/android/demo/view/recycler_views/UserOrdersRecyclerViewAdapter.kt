@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.compose.animation.fadeIn
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
 import ru.eightythreesoftware.shop_app.android.demo.R
 import ru.eightythreesoftware.shop_app.android.demo.model.Order
+import ru.eightythreesoftware.shop_app.android.demo.model.Product
 
 class UserOrdersRecyclerViewAdapter(private val orders: List<Order>):
     RecyclerView.Adapter<UserOrdersRecyclerViewAdapter.ViewHolder>() {

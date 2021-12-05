@@ -16,7 +16,8 @@ class Mapper {
                 response.address,
                 response.email,
                 response.avatar,
-                response.phone_number
+                response.phone_number,
+                false
             )
         }
 

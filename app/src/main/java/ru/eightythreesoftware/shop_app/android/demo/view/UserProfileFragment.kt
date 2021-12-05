@@ -10,13 +10,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.text.toUpperCase
-import androidx.core.graphics.rotationMatrix
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.eightythreesoftware.shop_app.android.demo.R
+import ru.eightythreesoftware.shop_app.android.demo.model.User
 import ru.eightythreesoftware.shop_app.android.demo.view.recycler_views.UserOrdersRecyclerViewAdapter
 import ru.eightythreesoftware.shop_app.android.demo.viewmodel.OrdersViewModel
 import ru.eightythreesoftware.shop_app.android.demo.viewmodel.UserViewModel
@@ -25,6 +24,7 @@ import java.util.*
 class UserProfileFragment : Fragment() {
 
     private val userProfileViewModel: UserViewModel by activityViewModels()
+    private val ordersViewModel: OrdersViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +43,8 @@ class UserProfileFragment : Fragment() {
             val userAddress: TextView = view.findViewById(R.id.user_profile_fragment_user_address)
             val userPhoneNumber: TextView = view.findViewById(R.id.user_profile_fragment_user_phone_number)
             val userImage: ImageView = view.findViewById(R.id.user_profile_fragment_user_icon)
+            val userBirthday: TextView = view.findViewById(R.id.user_profile_fragment_user_birthday)
+            val userKYCVerificationIcon: ImageView = view.findViewById(R.id.user_profile_fragment_user_kyc_verification_icon)
             val changeProfileButton: ImageView = view.findViewById(R.id.user_profile_fragment_change_profile_button)
             val userOrdersRecyclerView: RecyclerView = view.findViewById(R.id.user_profile_fragment_recycler_view)
             userProfileViewModel.user.observe(viewLifecycleOwner){ user ->
@@ -53,17 +55,25 @@ class UserProfileFragment : Fragment() {
                         Locale.getDefault())}"
                 userEmail.text = user.email
                 userPhoneNumber.text = user.phone
+                userBirthday.text = user.dateOfBirthday
+                when(user.kyc){
+                    true -> userKYCVerificationIcon.setImageResource(R.drawable.kyc_verified_icon)
+                    false -> userKYCVerificationIcon.setImageResource(R.drawable.kyc_not_verified_icon)
+                }
                 userAddress.text = "${user.userAddress.city}, ${user.userAddress.street_address}"
                 Glide.with(userImage)
                     .load(user.image)
                     .placeholder(R.drawable.loading_image)
                     .error(R.drawable.no_image_error)
                     .into(userImage)
-//                userOrdersRecyclerView.adapter = UserOrdersRecyclerViewAdapter(TODO())
-//                userOrdersRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
-//                changeProfileButton.setOnClickListener {
-//                    changeProfile(user.email)
-//                }
+                ordersViewModel.loadUserOrders(user.id)
+                ordersViewModel.orders.observe(viewLifecycleOwner){ orders ->
+                    userOrdersRecyclerView.adapter = UserOrdersRecyclerViewAdapter(orders)
+                    userOrdersRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
+                }
+                changeProfileButton.setOnClickListener {
+                    changeProfile(user.email)
+                }
             }
         }catch (throwable: Throwable){
             Toast.makeText(
@@ -79,5 +89,4 @@ class UserProfileFragment : Fragment() {
 
     private fun changeProfile(email: String) =
         userProfileViewModel.changeProfile(email)
-
 }

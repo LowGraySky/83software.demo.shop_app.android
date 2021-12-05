@@ -11,6 +11,45 @@ class Repository(private val retrofitService: RetrofitService) {
     private fun generateRandomId(): Int =
         (1..1000000).random()
 
+    fun getUserOrdersById(userId: Int): Single<List<Order>> =
+        Single.fromCallable {
+            listOf(
+                Order(
+                  generateRandomId(),
+                  LocalTime.now(),
+                  listOf(
+                      Product(generateRandomId(), "Motueka", 4.5 , "", null, "", 10.0),
+                      Product(generateRandomId(), "Buzz", 4.5 , "", null, "", 10.0),
+                      Product(generateRandomId(), "Amarillo", 4.5 , "", null, "", 10.0)),
+                  1000.0,
+                    "Moscow ulica Pushkina 10 kvartira 3",
+                    userId
+                ),
+                Order(
+                    generateRandomId(),
+                    LocalTime.now(),
+                    listOf(
+                        Product(generateRandomId(), "Buzz", 4.5 , "", null, "", 10.0),
+                        Product(generateRandomId(), "Amarillo", 4.5 , "", null, "", 10.0),
+                        Product(generateRandomId(), "Buzz", 4.5 , "", null, "", 10.0)),
+                    127.90,
+                    "Moscow ulica Pushkina 10 kvartira 3",
+                    userId
+                ),
+                Order(
+                    generateRandomId(),
+                    LocalTime.now(),
+                    listOf(
+                        Product(generateRandomId(), "Motueka", 4.5 , "", null, "", 10.0),
+                        Product(generateRandomId(), "Buzz", 4.5 , "", null, "", 10.0),
+                        Product(generateRandomId(), "Buzz", 4.5 , "", null, "", 10.0)),
+                    560.0,
+                    "Moscow ulica Pushkina 10 kvartira 3",
+                    userId
+                ),
+            )
+        }
+
 
     fun getUser(): Single<User> =
         retrofitService.userService
