@@ -31,7 +31,14 @@ class UserViewModel(
             }
     }
 
-    fun changeProfile(email: String){
-        TODO()
+    fun changeProfile(email: String, password: String){
+        repository.getUser(email, password)
+            .doOnError { throwable ->
+                Log.d("MAIN_DEBUG", "FAIL: user hasn't been added, ERROR: $throwable") }
+            .subscribe { user ->
+                _user.postValue(user)
+            }.also {
+                Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (user )")
+            }
     }
 }

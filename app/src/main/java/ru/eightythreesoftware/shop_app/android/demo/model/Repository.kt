@@ -1,5 +1,6 @@
 package ru.eightythreesoftware.shop_app.android.demo.model
 
+import android.provider.ContactsContract
 import android.util.Log
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -50,6 +51,14 @@ class Repository(private val retrofitService: RetrofitService) {
             )
         }
 
+    fun getUser(email: String, password: String): Single<User> =
+        retrofitService.userService
+            .getUser()
+            .subscribeOn(Schedulers.io())
+            .map { Mapper.toUser(it) }
+            .doOnError { throwable ->
+                throwable.message?.let { Log.d("MAIN_DEBUG", "FAIL: User hasn't been downloaded, ERROR: $it") }
+            }
 
     fun getUser(): Single<User> =
         retrofitService.userService

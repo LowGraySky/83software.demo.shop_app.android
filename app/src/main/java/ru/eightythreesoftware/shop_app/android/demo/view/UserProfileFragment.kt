@@ -1,6 +1,7 @@
 package ru.eightythreesoftware.shop_app.android.demo.view
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -71,8 +73,11 @@ class UserProfileFragment : Fragment() {
                     userOrdersRecyclerView.adapter = UserOrdersRecyclerViewAdapter(orders)
                     userOrdersRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL,false)
                 }
+                userKYCVerificationIcon.setOnClickListener {
+                    processKYC(user)
+                }
                 changeProfileButton.setOnClickListener {
-                    changeProfile(user.email)
+                    changeProfile()
                 }
             }
         }catch (throwable: Throwable){
@@ -87,6 +92,25 @@ class UserProfileFragment : Fragment() {
         }
     }
 
-    private fun changeProfile(email: String) =
-        userProfileViewModel.changeProfile(email)
+    private fun processKYC(user: User){
+        if(user.kyc){
+            Toast.makeText(
+                this.context,
+                "Подтверждение больше не требуется, можете совершать покупки!",
+                Toast.LENGTH_LONG
+            ).show()
+        }else{
+            TODO()
+        }
+    }
+
+    private fun changeProfile(){
+        UserLoginFragment
+            .newInstance()
+            .show(
+                parentFragmentManager,
+                "login_dialog_fragment"
+            )
+    }
+
 }
