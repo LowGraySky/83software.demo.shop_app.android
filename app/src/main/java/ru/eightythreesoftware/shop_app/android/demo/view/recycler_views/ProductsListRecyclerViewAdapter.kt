@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.eightythreesoftware.shop_app.android.demo.R
 import ru.eightythreesoftware.shop_app.android.demo.model.Product
-import ru.eightythreesoftware.shop_app.android.demo.network.products_response.ProductResponse
 
 class ProductsListRecyclerViewAdapter(
     private val products: List<Product>,
@@ -32,7 +31,7 @@ class ProductsListRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsListRecyclerViewAdapter.ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.products_list_view_holder, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.products_list_row_view_holder, parent, false)
         )
     }
 

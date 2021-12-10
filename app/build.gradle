@@ -36,8 +36,8 @@ android {
 
 dependencies {
 
-    //2GIS
-    //implementation 'ru.dgis.sdk:sdk-map:1.6'
+    //Yandex maps
+    implementation 'com.yandex.android:maps.mobile:4.0.0-lite'
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'

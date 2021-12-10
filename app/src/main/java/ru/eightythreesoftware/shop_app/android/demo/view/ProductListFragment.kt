@@ -13,9 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.eightythreesoftware.shop_app.android.demo.R
 import ru.eightythreesoftware.shop_app.android.demo.model.Product
+import ru.eightythreesoftware.shop_app.android.demo.view.recycler_views.PlaceholderListRecyclerViewAdapter
 import ru.eightythreesoftware.shop_app.android.demo.view.recycler_views.ProductsListRecyclerViewAdapter
 import ru.eightythreesoftware.shop_app.android.demo.viewmodel.ProductsViewModel
 import java.lang.IllegalArgumentException
@@ -29,14 +29,19 @@ class ProductListFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val view =  inflater.inflate(R.layout.product_list_fragment, container, false)
-        val recyclerView: RecyclerView = view.findViewById(R.id.product_list_recycler_view)
+        val productsRowRecyclerView: RecyclerView = view.findViewById(R.id.product_list_row_recycler_view)
+        val productsListRecyclerView: RecyclerView = view.findViewById(R.id.product_list_list_recycler_view)
         viewModel.productsList.observe(viewLifecycleOwner, { products ->
-            recyclerView.adapter = ProductsListRecyclerViewAdapter(products){ product: Product ->
+            productsRowRecyclerView.adapter = ProductsListRecyclerViewAdapter(products){ product: Product ->
                 showDetailsFragment(product)
             }
-            recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false )
+            productsRowRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false )
             }
         )
+        viewModel.placeholders.observe(viewLifecycleOwner){ placeholders ->
+            productsListRecyclerView.adapter = PlaceholderListRecyclerViewAdapter(placeholders)
+            productsListRecyclerView.layoutManager = GridLayoutManager(this.context, 2)
+        }
         return view
     }
 

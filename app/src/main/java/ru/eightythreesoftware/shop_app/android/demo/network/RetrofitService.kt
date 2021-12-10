@@ -21,7 +21,7 @@ class RetrofitService {
         .baseUrl(USERS_BASE_URL)
         .build()
 
-
+    val placeholderService: PlaceholderService = usersRetrofit.create(PlaceholderService::class.java)
     val productsService: ProductService = productRetrofit.create(ProductService::class.java)
     val userService: UserService = usersRetrofit.create(UserService::class.java)
 
