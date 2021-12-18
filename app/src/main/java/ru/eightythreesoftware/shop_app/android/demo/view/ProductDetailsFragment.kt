@@ -53,7 +53,7 @@ class ProductDetailsFragment: Fragment() {
             
             ${product.ingredients?.toString() ?: "NO INFO"}
             """.trimIndent()
-            price.text = "${product.price?.toString() ?: 0.0}$"
+            price.text = "${product.price.toString() ?: 0.0}$"
             addToGroceryButton.setOnClickListener {
                 addToGrocery(product)
             }

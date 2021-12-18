@@ -1,5 +1,7 @@
 package ru.eightythreesoftware.shop_app.android.demo.view
 
+import android.content.Context
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var groceryViewModel: GroceryViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var ordersViewModel: OrdersViewModel
+    private lateinit var locationManager: LocationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupComponents(repository: Repository){
+        locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val navigationHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navigationController = navigationHostFragment.navController
         findViewById<BottomNavigationView>(R.id.bottom_nav)
