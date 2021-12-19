@@ -7,10 +7,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.eightythreesoftware.shop_app.android.demo.R
-import ru.eightythreesoftware.shop_app.android.demo.network.Placeholder
+import ru.eightythreesoftware.shop_app.android.demo.model.Restaurant
 
-class PlaceholderListRecyclerViewAdapter(private val placeholders: List<Placeholder>):
-    RecyclerView.Adapter<PlaceholderListRecyclerViewAdapter.ViewHolder>() {
+class RestaurantsListRecyclerViewAdapter(private val restaurants: List<Restaurant>):
+    RecyclerView.Adapter<RestaurantsListRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val image: ImageView = itemView.findViewById(R.id.products_list_list_recycler_view_product_image)
@@ -28,13 +28,13 @@ class PlaceholderListRecyclerViewAdapter(private val placeholders: List<Placehol
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val placeholder = placeholders[position]
+        val restaurant = restaurants[position]
         Glide.with(holder.image)
-            .load(placeholder.image_jpg)
+            .load(restaurant.image)
             .error(R.drawable.no_image_error)
             .placeholder(R.drawable.loading_image)
             .into(holder.image)
     }
 
-    override fun getItemCount(): Int = placeholders.size
+    override fun getItemCount(): Int = restaurants.size
 }

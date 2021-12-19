@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.eightythreesoftware.shop_app.android.demo.model.Product
 import ru.eightythreesoftware.shop_app.android.demo.model.Repository
-import ru.eightythreesoftware.shop_app.android.demo.network.Placeholder
-import ru.eightythreesoftware.shop_app.android.demo.network.products_response.ProductResponse
 
 class ProductsViewModel(private val repository: Repository): ViewModel() {
 
@@ -58,27 +56,6 @@ class ProductsViewModel(private val repository: Repository): ViewModel() {
             }.also {
                 compositeDisposable.add(it)
                 Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (product with id: $id)")
-            }
-    }
-    private val _placeholders: MutableLiveData<List<Placeholder>> by lazy {
-        MutableLiveData<List<Placeholder>>().also {
-            loadPlaceholders()
-        }
-    }
-
-    val placeholders: LiveData<List<Placeholder>>
-        get() = _placeholders
-
-    private fun loadPlaceholders(){
-        repository.getPlaceholdersList()
-            .doOnError { throwable ->
-                Log.d("MAIN_DEBUG", "FAIL: data hasn't been added (placeholders), ERROR: $throwable")
-            }
-            .subscribe { holders ->
-                _placeholders.postValue(holders)
-            }.also {
-                compositeDisposable.add(it)
-                Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (placeholders)")
             }
     }
 

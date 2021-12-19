@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var ordersViewModel: OrdersViewModel
     private lateinit var locationManager: LocationManager
+    private lateinit var restaurantsViewModel: RestaurantsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,9 @@ class MainActivity : AppCompatActivity() {
         ordersViewModel = ViewModelProvider(
             this, OrdersViewModelFactory(repository)
             )[OrdersViewModel::class.java]
+        restaurantsViewModel = ViewModelProvider(
+            this, RestaurantsViewModelFactory(repository)
+        )[RestaurantsViewModel::class.java]
     }
 
     override fun onDestroy() {

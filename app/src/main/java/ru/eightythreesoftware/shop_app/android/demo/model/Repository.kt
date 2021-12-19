@@ -1,10 +1,8 @@
 package ru.eightythreesoftware.shop_app.android.demo.model
 
-import android.provider.ContactsContract
 import android.util.Log
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import ru.eightythreesoftware.shop_app.android.demo.network.Placeholder
 import ru.eightythreesoftware.shop_app.android.demo.network.RetrofitService
 import java.time.LocalTime
 
@@ -89,13 +87,14 @@ class Repository(private val retrofitService: RetrofitService) {
                 throwable.message?.let { Log.d( "MAIN_DEBUG", "FAIL: Product with ID($id) hasn't been downloaded, ERROR: $it") }
             }
 
-    fun getPlaceholdersList(): Single<List<Placeholder>> =
+    fun getRestaurants(): Single<List<Restaurant>> =
         retrofitService
-            .placeholderService
-            .getPlaceholder()
+            .restaurantsPhotosService
+            .getRestaurantsPhotos()
             .subscribeOn(Schedulers.io())
-            .repeat(10)
-            .subscribeOn(Schedulers.newThread())
-            .toList()
+            .map { Mapper.toRestaurantsList(it) }
+            .doOnError { throwable ->
+                throwable.message?.let { Log.d( "MAIN_DEBUG", "FAIL: Restaurants photos hasn't been downloaded, ERROR: $it") }
+            }
 
 }
