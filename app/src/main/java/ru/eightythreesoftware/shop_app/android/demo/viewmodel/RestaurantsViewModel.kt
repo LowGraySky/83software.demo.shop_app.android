@@ -28,13 +28,17 @@ class RestaurantsViewModel(private val repository: Repository): ViewModel() {
         repository
             .getRestaurants()
             .doOnError { throwable ->
-                Log.d("MAIN_DEBUG", "FAIL: data hasn't been added , ERROR: $throwable")
+                Log.d("MAIN_DEBUG", "FAIL: Data hasn't been added , ERROR: ${throwable.printStackTrace()}")
             }
-            .subscribe { restaurants ->
-                _restaurants.postValue(restaurants)
+            .subscribe { restaurants, error ->
+                if (restaurants.isNullOrEmpty()){
+                    Log.d("MAIN_DEBUG", "FAIL: Data download error ERROR: ${error.printStackTrace()}")
+                }else{
+                    _restaurants.postValue(restaurants)
+                    Log.d("MAIN_DEBUG", "SUCCESS: Downloaded restaurants data list: ${restaurants.toString()}")
+                }
             }.also {
                 compositeDisposable.add(it)
-                Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (restaurants view model)")
             }
     }
 

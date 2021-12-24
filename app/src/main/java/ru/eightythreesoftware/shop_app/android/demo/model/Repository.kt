@@ -54,27 +54,36 @@ class Repository(private val retrofitService: RetrofitService) {
         retrofitService.userService
             .getUser()
             .subscribeOn(Schedulers.io())
-            .map { Mapper.toUser(it) }
+            .map { response ->
+                Log.d("MAIN_DEBUG", "INFO: Downloaded user with email:${email}, Data: ${response.toString()}")
+                Mapper.toUser(response)
+            }
             .doOnError { throwable ->
-                throwable.message?.let { Log.d("MAIN_DEBUG", "FAIL: User hasn't been downloaded, ERROR: $it") }
+                Log.d("MAIN_DEBUG", "FAIL: User hasn't been downloaded, ERROR: ${throwable.printStackTrace()}")
             }
 
     fun getUser(): Single<User> =
         retrofitService.userService
             .getUser()
             .subscribeOn(Schedulers.io())
-            .map { Mapper.toUser(it) }
+            .map { response ->
+                Log.d("MAIN_DEBUG", "INFO: Downloaded user, Data: ${response.toString()}")
+                Mapper.toUser(response)
+            }
             .doOnError { throwable ->
-                throwable.message?.let { Log.d("MAIN_DEBUG", "FAIL: User hasn't been downloaded, ERROR: $it") }
+                Log.d("MAIN_DEBUG", "FAIL: User hasn't been downloaded, ERROR: ${throwable.printStackTrace()}")
             }
 
     fun getProductList(): Single<List<Product>> =
         retrofitService.productsService
             .getProductList()
             .subscribeOn(Schedulers.io())
-            .map{ Mapper.toProductList(it)}
+            .map{ response ->
+                Log.d("MAIN_DEBUG", "INFO: Downloaded products list, Data: ${response.toString()}")
+                Mapper.toProductList(response)
+            }
             .doOnError { throwable ->
-                throwable.message?.let { Log.d("MAIN_DEBUG", "FAIL: Products list hasn't been downloaded, ERROR: $it") }
+                Log.d("MAIN_DEBUG", "FAIL: Products list hasn't been downloaded, ERROR: ${throwable.printStackTrace()}")
             }
 
 
@@ -82,19 +91,24 @@ class Repository(private val retrofitService: RetrofitService) {
         retrofitService.productsService
             .getProductByID(id)
             .subscribeOn(Schedulers.io())
-            .map { Mapper.toProduct(it) }
+            .map { response ->
+                Log.d("MAIN_DEBUG", "INFO: Downloaded product with id: $id, Data: ${response.toString()}")
+                Mapper.toProduct(response)
+            }
             .doOnError { throwable ->
-                throwable.message?.let { Log.d( "MAIN_DEBUG", "FAIL: Product with ID($id) hasn't been downloaded, ERROR: $it") }
+                Log.d( "MAIN_DEBUG", "FAIL: Product with ID($id) hasn't been downloaded, ERROR: ${throwable.printStackTrace()}")
             }
 
     fun getRestaurants(): Single<List<Restaurant>> =
         retrofitService
             .restaurantsPhotosService
-            .getRestaurantsPhotos()
+            .getRestaurantsPhotos(1, 10)
             .subscribeOn(Schedulers.io())
-            .map { Mapper.toRestaurantsList(it) }
-            .doOnError { throwable ->
-                throwable.message?.let { Log.d( "MAIN_DEBUG", "FAIL: Restaurants photos hasn't been downloaded, ERROR: $it") }
+            .map { response ->
+                Log.d("MAIN_DEBUG", "INFO: Downloaded restaurants list, Data: ${response.toString()}")
+                Mapper.toRestaurantsList(response)
             }
-
+            .doOnError { throwable ->
+                Log.d( "MAIN_DEBUG", "FAIL: Restaurants photos hasn't been downloaded, ERROR: ${throwable.printStackTrace()}")
+            }
 }

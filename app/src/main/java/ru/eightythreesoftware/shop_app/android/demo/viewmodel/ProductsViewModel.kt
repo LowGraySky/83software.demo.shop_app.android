@@ -39,11 +39,14 @@ class ProductsViewModel(private val repository: Repository): ViewModel() {
             .doOnError { throwable ->
                 Log.d("MAIN_DEBUG", "FAIL: data hasn't been added , ERROR: $throwable")
             }
-            .subscribe { products ->
-                _productsList.postValue(products)
+            .subscribe { products, error ->
+                if(products.isNullOrEmpty()){
+                    Log.d("MAIN_DEBUG", "FAIL: Data download error ERROR: ${error.message}")
+                }else{
+                    _productsList.postValue(products)
+                }
             }.also {
                 compositeDisposable.add(it)
-                Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (products list)")
             }
     }
 
@@ -55,7 +58,6 @@ class ProductsViewModel(private val repository: Repository): ViewModel() {
                 _singleProduct.postValue(value)
             }.also {
                 compositeDisposable.add(it)
-                Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (product with id: $id)")
             }
     }
 

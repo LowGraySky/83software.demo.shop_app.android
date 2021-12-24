@@ -1,8 +1,6 @@
 package ru.eightythreesoftware.shop_app.android.demo.model
 
 import ru.eightythreesoftware.shop_app.android.demo.network.products_response.ProductResponse
-import ru.eightythreesoftware.shop_app.android.demo.network.restaurant_photos_response.Photo
-import ru.eightythreesoftware.shop_app.android.demo.network.restaurant_photos_response.PhotoSource
 import ru.eightythreesoftware.shop_app.android.demo.network.restaurant_photos_response.RestaurantsPhotosResponse
 import ru.eightythreesoftware.shop_app.android.demo.network.user_response.UserResponse
 
@@ -10,18 +8,18 @@ class Mapper {
 
     companion object {
 
-        fun toRestaurantsList(response: RestaurantsPhotosResponse): List<Restaurant>{
+        fun toRestaurantsList(response: List<RestaurantsPhotosResponse>): List<Restaurant>{
             val resultList: MutableList<Restaurant> = mutableListOf()
-            for(photo in response.photos){
+            for(photo in response){
                 val mappedResponse = toRestaurant(photo)
                 resultList.add(mappedResponse)
             }
             return resultList
         }
 
-        fun toRestaurant(response: Photo): Restaurant{
+        private fun toRestaurant(response: RestaurantsPhotosResponse): Restaurant{
             return Restaurant(
-                response.photoSource.portrait
+                "${response.download_url}.jpg"
             )
         }
 

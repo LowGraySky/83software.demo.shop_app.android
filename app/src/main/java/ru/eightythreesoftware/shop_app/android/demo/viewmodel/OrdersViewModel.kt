@@ -21,8 +21,12 @@ class OrdersViewModel(private val repository: Repository): ViewModel(){
     fun loadUserOrders(userId: Int){
         try {
             repository.getUserOrdersById(userId)
-                .subscribe { orders ->
-                    _orders.postValue(orders)
+                .subscribe { orders, error ->
+                    if (orders.isNullOrEmpty()){
+                        Log.d("MAIN_DEBUG", "FAIL: Data download error ERROR: ${error.message}")
+                    }else{
+                        _orders.postValue(orders)
+                    }
                 }
         }catch (throwable: Throwable){
             Log.d("MAIN_DEBUG", "ERROR: ${throwable.message.toString()}")

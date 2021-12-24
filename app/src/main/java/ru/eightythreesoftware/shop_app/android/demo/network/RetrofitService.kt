@@ -8,7 +8,7 @@ class RetrofitService {
 
     private val PRODUCTS_BASE_URL: String = "https://api.punkapi.com/"
     private val USERS_BASE_URL: String = "https://random-data-api.com/api/"
-    private val RESTAURANT_PHOTOS_BASE_URL: String = "https://api.pexels.com/"
+    private val RESTAURANT_PHOTOS_BASE_URL: String = "https://picsum.photos/"
 
     private val productRetrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
