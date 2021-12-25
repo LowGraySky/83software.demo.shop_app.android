@@ -1,5 +1,6 @@
 package ru.eightythreesoftware.shop_app.android.demo.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ class GroceryFragment : Fragment() {
     private val groceryViewModel: GroceryViewModel by activityViewModels()
     private val productViewModel: ProductsViewModel by activityViewModels()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -39,7 +41,7 @@ class GroceryFragment : Fragment() {
                 { product: Product-> showDetailsFragment(product) }
             )
             productsCounter.text = products?.size.toString()
-            finalPrice.text = setFinalPrice(products).toString()
+            finalPrice.text = "${products.sumOf { it.price }}$"
         }
         recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
         return view
@@ -51,14 +53,6 @@ class GroceryFragment : Fragment() {
             "${product.name} удален из корзины",
             Toast.LENGTH_LONG)
             .show()
-    }
-
-    private fun setFinalPrice(products: List<Product>): Double{
-        val finalPrice = 0.0
-        products.forEach { it.price.plus(finalPrice) }.also {
-            Log.d("MAIN_DEBUG", "FINAL PRICE CURRENT VALUE: $finalPrice")
-        }
-        return finalPrice
     }
 
 

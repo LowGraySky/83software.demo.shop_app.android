@@ -4,13 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.coroutines.launch
 import ru.eightythreesoftware.shop_app.android.demo.model.Product
 import ru.eightythreesoftware.shop_app.android.demo.model.Repository
-import ru.eightythreesoftware.shop_app.android.demo.network.products_response.ProductResponse
 
 class ProductsViewModel(private val repository: Repository): ViewModel() {
 
@@ -43,11 +39,14 @@ class ProductsViewModel(private val repository: Repository): ViewModel() {
             .doOnError { throwable ->
                 Log.d("MAIN_DEBUG", "FAIL: data hasn't been added , ERROR: $throwable")
             }
-            .subscribe { products ->
-                _productsList.postValue(products)
+            .subscribe { products, error ->
+                if(products.isNullOrEmpty()){
+                    Log.d("MAIN_DEBUG", "FAIL: Data download error ERROR: ${error.message}")
+                }else{
+                    _productsList.postValue(products)
+                }
             }.also {
                 compositeDisposable.add(it)
-                Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (products list)")
             }
     }
 
@@ -56,10 +55,9 @@ class ProductsViewModel(private val repository: Repository): ViewModel() {
             .doOnError { throwable ->
                 Log.d("MAIN_DEBUG", "FAIL: data hasn't been added , ERROR: $throwable")
             }.subscribe { value ->
-                System.out.println(value)
+                _singleProduct.postValue(value)
             }.also {
                 compositeDisposable.add(it)
-                Log.d("MAIN_DEBUG", "SUCCESS: Data added to view model (product with id: $id)")
             }
     }
 

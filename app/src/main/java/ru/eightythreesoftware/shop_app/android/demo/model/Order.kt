@@ -1,11 +1,11 @@
 package ru.eightythreesoftware.shop_app.android.demo.model
 
+import java.time.LocalTime
 import java.util.*
 
 class Order(
     var orderId: Int,
-    var time: Date,
-    var date: Date,
+    var dateTime: LocalTime,
     var productsInOrder: List<Product>,
     var orderPrice: Double,
     var orderAddress: String,
