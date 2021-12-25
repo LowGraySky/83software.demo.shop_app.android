@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ordersViewModel: OrdersViewModel
     private lateinit var locationManager: LocationManager
     private lateinit var restaurantsViewModel: RestaurantsViewModel
+    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +36,7 @@ class MainActivity : AppCompatActivity() {
         }catch (throwable: Throwable){
             Toast.makeText(
                 this,
-                """
-                    Произошла системная ошибка, пожалуйста перезагрузите приложение
-                    Приносим извинения за временные неудобства!
-                """.trimIndent(),
+                " Произошла системная ошибка, пожалуйста перезагрузите приложение",
                 Toast.LENGTH_LONG
             ).show()
                 .also {
@@ -72,6 +70,20 @@ class MainActivity : AppCompatActivity() {
         restaurantsViewModel = ViewModelProvider(
             this, RestaurantsViewModelFactory(repository)
         )[RestaurantsViewModel::class.java]
+        searchViewModel = ViewModelProvider(
+            this, SearchViewModelFactory(repository)
+        )[SearchViewModel::class.java]
+    }
+
+    override fun onSearchRequested(): Boolean {
+        val searchRequestData = Bundle().apply { putBoolean("SEARCH", true) }
+        startSearch(
+            null,
+            false,
+            searchRequestData,
+            false
+        )
+        return true
     }
 
     override fun onDestroy() {

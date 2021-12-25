@@ -33,7 +33,7 @@ class Mapper {
                 response.email,
                 response.avatar,
                 response.phone_number,
-                false
+                true
             )
         }
 

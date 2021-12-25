@@ -15,6 +15,7 @@
         android:theme="@style/Theme.Shop_appdemo">
         <activity
             android:name=".search.SearchActivity"
+            android:launchMode="singleTop"
             android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

@@ -63,7 +63,7 @@ class MapNavigationFragment : Fragment(), LocationListener {
                     .launch(requiredPermissions)
             }
             MapKitFactory.setApiKey("03faf9ef-20ca-4e7b-8af0-30e029dba892")
-            MapKitFactory.initialize(this.context);
+            MapKitFactory.initialize(this.context)
             locationManager = this.activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         }catch (throwable: Throwable){
             Toast
@@ -118,13 +118,24 @@ class MapNavigationFragment : Fragment(), LocationListener {
         MapKitFactory.getInstance().onStop()
     }
 
+    private fun getEnabledLocationProvider(locationManager: LocationManager): String{
+        val provider =  if(locationManager.
+            isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        ) LocationManager.NETWORK_PROVIDER else LocationManager.GPS_PROVIDER
+        Log.d("MAIN_DEBUG", "INFO: Providers status:" +
+                " GPS: ${locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)}," +
+                " NETWORK: ${locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)}")
+        return provider
+    }
+
     private fun getUserCurrentPosition(locationManager: LocationManager){
         if(this.context?.let { context->
                 ActivityCompat.checkSelfPermission(context, requiredPermissions[0]) } == PackageManager.PERMISSION_GRANTED &&
             this.context?.let { ActivityCompat.checkSelfPermission(it, requiredPermissions[1]) } == PackageManager.PERMISSION_GRANTED
         ){
+            val provider = getEnabledLocationProvider(locationManager)
             locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER,
+                provider,
                 MIN_UPDATE_INTERVAL,
                 MIN_LOCATION_DISTANCE,
                 this,

@@ -36,8 +36,14 @@
         <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/drawable/location_marker_icon.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/activity_search.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/map_navigation_fragment.xml" value="0.264" />
+        <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/product_list_fragment.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/products_list_list_view_holder.xml" value="0.536" />
+        <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/products_list_row_view_holder.xml" value="0.22418478260869565" />
         <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/search_view_product_raw_view_holder.xml" value="0.4" />
+        <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/user_login_fragment.xml" value="0.4" />
+        <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/layout/user_profile_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.264" />
+        <entry key="..\:/Users/lowgraysky/StudioProjects/83software.demo.shop_app.android/app/src/main/res/menu/search_menu.xml" value="0.1484375" />
       </map>
     </option>
   </component>

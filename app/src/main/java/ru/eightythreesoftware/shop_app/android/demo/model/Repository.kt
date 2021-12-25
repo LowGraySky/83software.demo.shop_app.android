@@ -105,7 +105,7 @@ class Repository(private val retrofitService: RetrofitService) {
             .getRestaurantsPhotos(1, 10)
             .subscribeOn(Schedulers.io())
             .map { response ->
-                Log.d("MAIN_DEBUG", "INFO: Downloaded restaurants list, Data: ${response.toString()}")
+                Log.d("MAIN_DEBUG", "INFO: Downloaded restaurants list, Data: ${response.map { it.toString() }}")
                 Mapper.toRestaurantsList(response)
             }
             .doOnError { throwable ->
