@@ -33,10 +33,13 @@ android {
         viewBinding true
     }
     compileSdkVersion 31
-    buildToolsVersion '30.0.2'
+    buildToolsVersion '30.0.3'
 }
 
 dependencies {
+
+    //Google auth
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
 
     //Yandex maps
     implementation 'com.yandex.android:maps.mobile:4.0.0-lite'
@@ -60,7 +63,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
     androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
-    implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
+    implementation "androidx.navigation:navigation-compose:2.4.0-rc01"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'

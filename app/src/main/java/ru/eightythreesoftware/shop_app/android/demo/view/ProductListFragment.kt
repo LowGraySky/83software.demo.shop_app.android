@@ -19,14 +19,12 @@ import ru.eightythreesoftware.shop_app.android.demo.view.recycler_views.Restaura
 import ru.eightythreesoftware.shop_app.android.demo.view.recycler_views.ProductsListRecyclerViewAdapter
 import ru.eightythreesoftware.shop_app.android.demo.viewmodel.ProductsViewModel
 import ru.eightythreesoftware.shop_app.android.demo.viewmodel.RestaurantsViewModel
-import ru.eightythreesoftware.shop_app.android.demo.viewmodel.SearchViewModel
 import java.lang.IllegalArgumentException
 
 class ProductListFragment : Fragment() {
 
     private val productsViewModel: ProductsViewModel by activityViewModels()
     private val restaurantsViewModel: RestaurantsViewModel by activityViewModels()
-    private val searchViewModel: SearchViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +50,6 @@ class ProductListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val searchView = view.findViewById<SearchView>(R.id.search_view)
-            .setOnSearchClickListener {
-
-            }
     }
 
     private fun showDetailsFragment(product: Product){
